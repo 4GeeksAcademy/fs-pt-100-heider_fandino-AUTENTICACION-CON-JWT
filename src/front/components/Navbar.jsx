@@ -1,19 +1,33 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const Navbar = () => {
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-	return (
-		<nav className="navbar navbar-light bg-light">
-			<div className="container">
-				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-				</Link>
-				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link>
-				</div>
-			</div>
-		</nav>
-	);
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        setIsLoggedIn(!!token);
+    }, []);
+
+    const handleLogout = () => {
+        sessionStorage.removeItem("token");
+        setIsLoggedIn(false);
+        navigate("/login");
+    };
+	
+	useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    setIsLoggedIn(!!token);
+}, [location.pathname]);
+
+    return (
+        <nav className="navbar bg-dark px-4">
+            {isLoggedIn && (
+                <button className="btn btn-danger ms-auto" onClick={handleLogout}>
+                    Logout
+                </button>
+            )}
+        </nav>
+    );
 };
