@@ -25,6 +25,7 @@ export const Private = () => {
             <div className="tab-content" id="pills-tabContent">
                 <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabIndex="0">
                     <div className="card card-body">
+                        <h2 className="d-flex justify-content-center">¿PROYECTO APROBADO?</h2>
                         <div className="row">
                             {[
                                 "https://concepto.de/wp-content/uploads/2020/08/Programacion-informatica-scaled-e1724960033513-2048x1024.jpg",

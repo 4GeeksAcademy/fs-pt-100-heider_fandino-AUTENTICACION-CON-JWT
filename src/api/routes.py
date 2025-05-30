@@ -7,7 +7,7 @@ from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from sqlalchemy import select
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 api = Blueprint('api', __name__)
 
@@ -38,9 +38,15 @@ def register():
         existing_user = db.session.execute(stm).scalar()
         if existing_user:
             raise Exception({"error":  "email, taken, try logging in"})
+
+
+        hashed_password = generate_password_hash(data["password"])
+
+       
+        
         new_user = User(
             email=data["email"],
-            password=data["password"],
+            password=hashed_password,
             is_active=True
         )
         db.session.add(new_user)
@@ -50,7 +56,7 @@ def register():
         return jsonify({"msj": "register OK", "token": token}), 201
 
     except Exception as e:
-        print(e)
+       
         db.session.rollback()
         return jsonify({"error": "something went wrong"}), 400
 
@@ -69,14 +75,14 @@ def login():
         if not user:
             raise Exception({"error":  "email not found"})
 
-        if (user.password != data["password"]):
-            raise Exception({"error":  "Wrong email-password"})
+        if not check_password_hash(user.password, data["password"]):
+            return jsonify({"success": False, "msg": "email/password incorrectos"}), 418
 
         token = create_access_token(identity=str(user.id))
         return jsonify({"msj": "login ok", "token": token}), 200
 
     except Exception as e:
-        print(e)
+       
         db.session.rollback()
         return jsonify({"error": "something went wrong"}), 400
 
@@ -96,5 +102,5 @@ def get_user_inf():
         }), 200
 
     except Exception as e:
-        print(e)
+      
         return jsonify({"error": "Something went wrong"}), 500

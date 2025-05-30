@@ -31,28 +31,27 @@ export const Login = () => {
     }
 
     const handleSubmit = e => {
-    e.preventDefault();
+        e.preventDefault();
 
-   userServices.login(FormData)
-    .then(data => {
-        if (!data) {
-            setErrorMessage("Credenciales incorrectas");
-        } else {
-            console.log(data);
-            navigate("/private");
-            
-        }
-    });
-};
+        userServices.login(FormData)
+            .then(data => {
+                if (!data) {
+                    setErrorMessage("Credenciales incorrectas");
+                } else {
+                    navigate("/private");
+
+                }
+            });
+    };
     return (
 
-        <div className="container my-5">
+        <div className="container my-2">
             <div className="row justify-content-center">
-                
-                <h2>Ya te encuentras registrado, ahora inicia secion</h2>
-             
+
+
+
                 <div className="col-md-6 col-lg-4 p-0 border rounded shadow text-center">
-                    <div className="col-sm  fs-5 mb-4 px-3 py-2 text-white bg-orange text-start">Login</div>
+                    <div className="col-sm  fs-5 mb-4 px-3 py-2 text-white bg-blue text-start">Login</div>
                     <img
                         src={logo}
                         alt="Chef Logo"
@@ -64,7 +63,7 @@ export const Login = () => {
                             {errorMessage}
                         </div>
                     )}
-                 
+
 
                     <form onSubmit={handleSubmit} className='m-4'>
                         <div className="mb-3 text-start">
@@ -99,7 +98,7 @@ export const Login = () => {
                             <small className="text-muted">Your secure password</small>
                         </div>
 
-                        <button type="submit" className="btn bg-orange text-white w-100">
+                        <button type="submit" className="btn bg-blue text-white w-100">
                             Login
                         </button>
                         <div className="mt-2 mb-5 text-muted">Forgot Password?</div>

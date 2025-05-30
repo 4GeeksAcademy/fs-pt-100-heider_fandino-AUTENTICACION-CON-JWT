@@ -31,19 +31,17 @@ export const Register = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        console.log(FormData)
         userServices.register(FormData).then(data => {
             if (!data) {
                 setErrorMessage("Error al registrar. Email ya se encuentra en uso ")
             } else {
-                console.log(data)
                 navigate("/login");
             }
         })
     }
 
     return (
-        <div className="container my-5">
+        <div className="container my-2">
             <div className="row justify-content-center">
                 <div className="col-md-6 col-lg-4 p-0 border rounded shadow text-center">
                     <div className="col-sm  fs-5 mb-4 px-3 py-2 text-white bg-orange text-start">REGISTRO DE USUARIOS </div>

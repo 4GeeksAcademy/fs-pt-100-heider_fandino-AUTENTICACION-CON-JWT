@@ -1,8 +1,15 @@
-
 .bg-orange {
   background-color: #ff7741;
 }
 
 button.bg-orange:hover {
   background-color: #f55d21;
+}
+
+.bg-blue {
+  background-color: #4b21f5;
+}
+
+button.bg-blue:hover {
+  background-color: #4b21f5;
 }
